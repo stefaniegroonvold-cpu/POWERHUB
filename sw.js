@@ -1,8 +1,6 @@
-// Service worker: makes the site installable and lets it open without internet.
-
 const CACHE = "powerhub-v3";
 
-// The files the app needs to start
+
 const FILES = [
     "./",
     "./index.html",
@@ -19,7 +17,7 @@ const FILES = [
     "./media/træ.glb"
 ];
 
-// Save the files when the service worker is installed
+
 self.addEventListener("install", function (e) {
     e.waitUntil(
         caches.open(CACHE).then(function (cache) {
@@ -29,7 +27,7 @@ self.addEventListener("install", function (e) {
     self.skipWaiting();
 });
 
-// Delete old caches when CACHE gets a new name (e.g. "powerhub-v2")
+
 self.addEventListener("activate", function (e) {
     e.waitUntil(
         caches.keys().then(function (keys) {
@@ -43,14 +41,13 @@ self.addEventListener("activate", function (e) {
     self.clients.claim();
 });
 
-// Try the internet first (so you always see your newest changes).
-// If there is no internet, use the saved copy.
+
 self.addEventListener("fetch", function (e) {
     if (e.request.method !== "GET") return;
 
     e.respondWith(
         fetch(e.request).then(function (response) {
-            // save a copy of our own files for next time
+          
             if (response.ok && e.request.url.startsWith(self.location.origin)) {
                 const copy = response.clone();
                 caches.open(CACHE).then(function (cache) {
@@ -60,7 +57,7 @@ self.addEventListener("fetch", function (e) {
             return response;
         }).catch(function () {
             return caches.match(e.request).then(function (saved) {
-                // if a page isn't saved, show the start page instead of an error
+        
                 if (!saved && e.request.mode === "navigate") {
                     return caches.match("./index.html");
                 }

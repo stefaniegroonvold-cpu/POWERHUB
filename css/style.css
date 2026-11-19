@@ -188,7 +188,7 @@ main {
     opacity: 1;
 }
 
-/* green arrow on top */
+/* P I N S*/
 .compass::before {
     content: "";
     position: absolute;
@@ -234,7 +234,6 @@ main {
     touch-action: none;
 }
 
-/* only the handle and the title stick out */
 .sheet.closed {
     transform: translateY(calc(100% - 61px));
 }

@@ -63,7 +63,6 @@ function turnCompass(e) {
         return;
     }
 
-    // turn the dial, but keep the letters standing up
     dial.style.transform = "rotate(" + -heading + "deg)";
     letters.forEach(function (letter) {
         letter.style.transform = "rotate(" + heading + "deg)";
@@ -75,7 +74,7 @@ function turnCompass(e) {
 window.addEventListener("deviceorientationabsolute", turnCompass);
 window.addEventListener("deviceorientation", turnCompass);
 
-// iPhone has to ask for permission first
+// IPHONE
 compass.addEventListener("click", function () {
     if (window.DeviceOrientationEvent && DeviceOrientationEvent.requestPermission) {
         DeviceOrientationEvent.requestPermission().catch(function (err) {

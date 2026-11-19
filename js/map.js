@@ -9,7 +9,7 @@ L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
 }).addTo(map);
 
 
-// ----- Trees (fake for now) -----
+// ----- Trees -----
 const trees = [
     { name: "Roskilde Tekniske Skole", pos: [55.6249, 12.0812] },
     { name: "Pulsen", pos: [55.6258, 12.0797] },
@@ -37,7 +37,7 @@ trees.forEach(function (tree) {
 });
 
 
-// ----- Scan button: show the 3 closest trees -----
+// -----3 closest trees -----
 const scanButton = document.getElementById("scan");
 const nearestList = document.getElementById("nearest");
 
