@@ -1,6 +1,6 @@
 // Service worker: makes the site installable and lets it open without internet.
 
-const CACHE = "powerhub-v2";
+const CACHE = "powerhub-v3";
 
 // The files the app needs to start
 const FILES = [
@@ -14,7 +14,9 @@ const FILES = [
     "./img/PowerHub (hvid).png",
     "./img/blad menu.png",
     "./img/appikon.png",
-    "./img/appikon.png"
+    "./img/icon-192.png",
+    "./img/icon-512.png",
+    "./media/træ.glb"
 ];
 
 // Save the files when the service worker is installed
@@ -57,7 +59,13 @@ self.addEventListener("fetch", function (e) {
             }
             return response;
         }).catch(function () {
-            return caches.match(e.request);
+            return caches.match(e.request).then(function (saved) {
+                // if a page isn't saved, show the start page instead of an error
+                if (!saved && e.request.mode === "navigate") {
+                    return caches.match("./index.html");
+                }
+                return saved;
+            });
         })
     );
 });

@@ -4,7 +4,8 @@ const you = [55.6253, 12.0808]; // Roskilde Tekniske Skole
 const map = L.map("map").setView(you, 16);
 
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution: "© OpenStreetMap"
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
 

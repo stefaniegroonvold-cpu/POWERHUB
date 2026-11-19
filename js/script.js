@@ -55,9 +55,9 @@ const letters = dial.querySelectorAll("text");
 function turnCompass(e) {
     let heading;
 
-    if (e.webkitCompassHeading) {
+    if (typeof e.webkitCompassHeading === "number") {
         heading = e.webkitCompassHeading; // iPhone
-    } else if (e.absolute && e.alpha) {
+    } else if (e.absolute && e.alpha !== null) {
         heading = 360 - e.alpha; // Android
     } else {
         return;
@@ -77,7 +77,9 @@ window.addEventListener("deviceorientation", turnCompass);
 
 // iPhone has to ask for permission first
 compass.addEventListener("click", function () {
-    if (DeviceOrientationEvent.requestPermission) {
-        DeviceOrientationEvent.requestPermission();
+    if (window.DeviceOrientationEvent && DeviceOrientationEvent.requestPermission) {
+        DeviceOrientationEvent.requestPermission().catch(function (err) {
+            console.log("Compass permission failed:", err);
+        });
     }
 });
