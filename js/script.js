@@ -49,8 +49,8 @@ sheet.addEventListener("touchend", function (e) {
 
 // ----- Compass -----
 const compass = document.getElementById("compass");
-const dial = document.getElementById("compass-dial");
-const letters = dial.querySelectorAll("text");
+const rose = document.getElementById("compass-rose");
+const letters = rose.querySelectorAll("text");
 
 function turnCompass(e) {
     let heading;
@@ -63,9 +63,12 @@ function turnCompass(e) {
         return;
     }
 
-    dial.style.transform = "rotate(" + -heading + "deg)";
+    // SVG transform attributes (not CSS) so Safari rotates around the right point
+    rose.setAttribute("transform", "rotate(" + -heading + ")");
     letters.forEach(function (letter) {
-        letter.style.transform = "rotate(" + heading + "deg)";
+        const x = letter.getAttribute("x");
+        const y = letter.getAttribute("y");
+        letter.setAttribute("transform", "rotate(" + heading + " " + x + " " + y + ")");
     });
 
     compass.classList.add("live");

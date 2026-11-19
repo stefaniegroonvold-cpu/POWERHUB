@@ -46,11 +46,13 @@
         <section class="sheet" id="sheet">
             <button class="compass" id="compass" aria-label="Kompas">
                 <svg id="compass-dial" viewBox="-50 -50 100 100">
-                    <circle r="47" fill="white" stroke="#101a18" stroke-width="4"/>
-                    <text class="north" y="-27">N</text>
-                    <text x="27">Ø</text>
-                    <text y="27">S</text>
-                    <text x="-27">V</text>
+                    <g id="compass-rose">
+                        <circle r="47" fill="white" stroke="#101a18" stroke-width="4"/>
+                        <text class="north" x="0" y="-27">N</text>
+                        <text x="27" y="0">Ø</text>
+                        <text x="0" y="27">S</text>
+                        <text x="-27" y="0">V</text>
+                    </g>
                 </svg>
             </button>
 

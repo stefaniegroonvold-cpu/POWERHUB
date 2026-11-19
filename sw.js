@@ -1,4 +1,4 @@
-const CACHE = "powerhub-v3";
+const CACHE = "powerhub-v4";
 
 
 const FILES = [
