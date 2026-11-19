@@ -1,5 +1,5 @@
 // ----- Map -----
-const you = [55.6253, 12.0808]; // Roskilde Tekniske Skole
+const you = [55.6253, 12.0808]; 
 
 const map = L.map("map").setView(you, 16);
 
@@ -41,15 +41,66 @@ trees.forEach(function (tree) {
 const scanButton = document.getElementById("scan");
 const nearestList = document.getElementById("nearest");
 
-scanButton.addEventListener("click", function () {
+function showNearest(from) {
     trees.sort(function (a, b) {
-        return map.distance(you, a.pos) - map.distance(you, b.pos);
+        return map.distance(from, a.pos) - map.distance(from, b.pos);
     });
 
     nearestList.innerHTML = "";
     for (let i = 0; i < 3; i++) {
         nearestList.innerHTML += '<li><span class="badge">GÅ</span><span class="name">' + trees[i].name + '</span></li>';
     }
+}
 
+scanButton.addEventListener("click", function () {
+    showNearest(you);
     scanButton.textContent = "SCAN COMPLETE";
+});
+
+
+// ----- Search -----
+const searchInput = document.getElementById("search");
+
+searchInput.addEventListener("keydown", function (e) {
+    if (e.key !== "Enter") return;
+
+    const text = searchInput.value.trim().toLowerCase();
+    if (!text) return;
+
+    searchInput.blur(); 
+
+    const tree = trees.find(function (t) {
+        return t.name.toLowerCase().includes(text);
+    });
+    if (tree) {
+        map.flyTo(tree.pos, 18);
+        showNearest(tree.pos);
+        return;
+    }
+
+    const url = "https://nominatim.openstreetmap.org/search?format=json&limit=1"
+        + "&viewbox=12.03,55.66,12.13,55.60&bounded=1"
+        + "&q=" + encodeURIComponent(text);
+
+    fetch(url)
+        .then(function (res) { return res.json(); })
+        .then(function (results) {
+            if (results.length === 0) {
+                searchInput.value = "";
+                searchInput.placeholder = "Ingen resultater";
+                return;
+            }
+            const pos = [Number(results[0].lat), Number(results[0].lon)];
+            map.flyTo(pos, 17);
+            showNearest(pos);
+        })
+        .catch(function () {
+            searchInput.value = "";
+            searchInput.placeholder = "Ingen internet";
+        });
+});
+
+
+searchInput.addEventListener("focus", function () {
+    searchInput.placeholder = "Søg lokation";
 });
