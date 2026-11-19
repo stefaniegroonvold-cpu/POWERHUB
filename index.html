@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerHub</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#038745">
+    <link rel="icon" href="img/icon-192.png">
+    <link rel="apple-touch-icon" href="img/icon-192.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+</head>
+<body>
+    <header class="topbar">
+        <img class="logo" src="img/PowerHub (hvid).png" alt="PowerHub">
+        <button class="menu-btn" id="menu-btn"><img src="img/blad menu.png" alt="Menu"></button>
+
+        <div class="menu" id="menu">
+            <button class="menu_close" id="menu_close">&times;</button>
+            <div class="list">
+                <details name="faq">
+                    <summary>Solcelle træ</summary>
+                    <model-viewer src="media/træ.glb" alt="Solcelle træ" camera-controls disable-pan
+                        touch-action="pan-y" shadow-intensity="2" max-camera-orbit="auto 90deg auto"></model-viewer>
+                </details>
+
+                <details name="faq">
+                    <summary>Orangeri</summary>
+                </details>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div id="map"></div>
+
+        <div class="search-box">
+            <input id="search" type="text" placeholder="Søg lokation">
+        </div>
+
+        <section class="sheet" id="sheet">
+            <button class="compass" id="compass">
+                <svg id="compass-dial" viewBox="-50 -50 100 100">
+                    <circle r="47" fill="white" stroke="#101a18" stroke-width="4"/>
+                    <text class="north" y="-27">N</text>
+                    <text x="27">Ø</text>
+                    <text y="27">S</text>
+                    <text x="-27">V</text>
+                </svg>
+            </button>
+
+            <button class="sheet-handle" id="sheet-handle"><span></span></button>
+
+            <div class="sheet-card">
+                <h2>Tættest på dig:</h2>
+                <div class="sheet-row">
+                    <ul class="nearest" id="nearest"></ul>
+                    <button class="scan" id="scan">SCAN</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

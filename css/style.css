@@ -1,0 +1,334 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    position: relative;
+    overflow-x: hidden;
+    max-width: 430px;
+    height: 100vh;
+    height: 100dvh;
+    margin: 0 auto;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+}
+
+
+/* ----- HEADER ----- */
+
+.topbar {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    background-color: #038745;
+}
+
+.logo {
+    display: block;
+    max-width: 10em;
+}
+
+.menu-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.menu-btn img {
+    display: block;
+    width: 5em;
+}
+
+
+/* ----- MENU ----- */
+
+.menu {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 85%;
+    height: 100%;
+    padding: 5em 2em 2em;
+    overflow-y: auto;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(3px);
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.25);
+    transform: translateX(105%);
+    visibility: hidden;
+    transition: transform 0.35s, visibility 0.35s;
+}
+
+.menu.open {
+    transform: translateX(0);
+    visibility: visible;
+}
+
+.menu_close {
+    position: absolute;
+    top: 0.3em;
+    right: 0.4em;
+    padding: 0 0.2em;
+    background: none;
+    border: none;
+    font-size: 2.5em;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    margin-top: 1em;
+}
+
+.menu details {
+    position: relative;
+    background-color: #038745;
+    border-radius: 25px 25px 0 25px;
+    font-family: "Ubuntu", sans-serif;
+}
+
+/* the little tip under each box */
+.menu details::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: calc(100% - 1px);
+    width: 1.4em;
+    height: 1.2em;
+    background: #038745;
+    clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+
+.menu summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1em;
+    padding: 1.1em 1em;
+    font-size: 1.3em;
+    cursor: pointer;
+    list-style: none;
+}
+
+.menu summary::-webkit-details-marker {
+    display: none;
+}
+
+.menu summary::after {
+    content: "Vis";
+}
+
+.menu details[open] summary::after {
+    content: "Skjul";
+}
+
+.menu model-viewer {
+    width: 100%;
+    height: 250px;
+}
+
+
+/* ----- MAP ----- */
+
+main {
+    position: relative;
+    height: calc(100vh - 64px);
+    height: calc(100dvh - 64px);
+    overflow: hidden;
+    background-color: white;
+}
+
+#map {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.search-box {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 10;
+}
+
+#search {
+    width: 160px;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 50em;
+    outline: none;
+}
+
+.leaflet-popup-content {
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 300;
+}
+
+
+/* ----- COMPASS ----- */
+
+.compass {
+    position: absolute;
+    right: 16px;
+    bottom: calc(100% + 16px);
+    width: 72px;
+    height: 72px;
+    border: none;
+    background: none;
+    opacity: 0.7;
+}
+
+.compass.live {
+    opacity: 1;
+}
+
+/* green arrow on top */
+.compass::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: -7px;
+    left: 29px;
+    width: 14px;
+    height: 11px;
+    background: #22c55e;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+#compass-dial {
+    display: block;
+}
+
+#compass-dial text {
+    font-size: 17px;
+    font-weight: 800;
+    text-anchor: middle;
+    dominant-baseline: central;
+    transform-box: fill-box;
+    transform-origin: center;
+}
+
+#compass-dial .north {
+    fill: #e53935;
+}
+
+
+/* ----- BOTTOM SHEET ----- */
+
+.sheet {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 500;
+    background: white;
+    border-radius: 18px 18px 0 0;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.25);
+    transition: transform 0.3s;
+    touch-action: none;
+}
+
+/* only the handle and the title stick out */
+.sheet.closed {
+    transform: translateY(calc(100% - 61px));
+}
+
+.sheet-handle {
+    display: block;
+    width: 100%;
+    padding: 10px 0 6px;
+    background: none;
+    border: none;
+    cursor: grab;
+}
+
+.sheet-handle span {
+    display: block;
+    width: 44px;
+    height: 5px;
+    margin: 0 auto;
+    border-radius: 5px;
+    background: #c4c4c4;
+}
+
+.sheet-card {
+    padding: 4px 16px 20px;
+}
+
+.sheet-card h2 {
+    font-size: 1.35rem;
+    font-family: "Ubuntu", sans-serif;
+    margin-bottom: 10px;
+}
+
+.sheet-row {
+    display: flex;
+    gap: 14px;
+}
+
+.nearest {
+    flex: 1;
+    min-width: 0;
+    list-style: none;
+}
+
+.nearest li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+}
+
+.badge {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #1fb35a;
+    color: white;
+    font-size: 0.7rem;
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.name {
+    flex: 1;
+    padding-bottom: 2px;
+    border-bottom: 1px solid #333;
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 300;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.scan {
+    flex: 0 0 26%;
+    background: #1c8a4a;
+    color: #0b2a17;
+    border: 2px solid #0b2a17;
+    border-radius: 12px;
+    box-shadow: 0 3px 0 #0b2a17;
+    font-size: 1.2rem;
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 700;
+    -webkit-text-stroke: 0.8px currentColor;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.scan:active {
+    background: #167a40;
+    box-shadow: none;
+    transform: translateY(3px);
+}
