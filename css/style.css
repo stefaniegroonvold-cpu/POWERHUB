@@ -158,8 +158,8 @@ main {
 }
 
 #search {
-    width: 160px;
-    padding: 5px;
+    width: 180px;
+    padding: 10px;
     border: 1px solid black;
     border-radius: 50em;
     outline: none;
